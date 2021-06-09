@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trip info page</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container page min-vh-100">
+
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Trip web form</span>
+    </nav>
+
+    <section id="setting">
+        <form method="post" th:action="@{'/new'}" th:object="${trip}">
+            <div class="form-row " >
+                <div class="form-group col-md-6">
+                    <label for="distance">Distance, km</label>
+                    <input th:field="*{distanceKm}" type="number" min="1" class="form-control" id="distance" placeholder="Distance" required>
+                    <small class="text-muted">Required parameter</small>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="distance">Participants, number</label>
+                    <input  th:field="*{participantNumber}" type="number" min="1" class="form-control" id="participants" placeholder="Participants">
+                    <small class="text-muted">Minimum 1, dog is included separately</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="start">Start date</label>
+                    <input th:field="*{startDate}" type="date" class="form-control" id="start">
+                    <small class="text-muted">Optional</small>
+                </div>
+                <div class="form-group col-md-5">
+                    <label  for="end">End date</label>
+                    <input th:field="*{endDate}" type="date" class="form-control" id="end">
+                    <small class="text-muted">Optional</small>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="title">Trip title</label>
+                    <input th:field="*{endDestination}" type="text" class="form-control" id="title" placeholder="Trip title">
+                    <small class="text-muted">Optional</small>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input th:field="*{campingPlanned}" class="form-check-input" type="checkbox" id="camping">
+                    <label class="form-check-label" for="camping">
+                        Camping is included
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+        </form>
+    </section>
+    <nav class="navbar navbar-light bg-light mt-2 mb-2" title="Click to see explanation">
+        <div class="wrapper navbar-brand mb-0 h1">
+            <details>
+                <summary>
+                    How is calculated quantity for each object?
+                </summary>
+
+                <p class="text-muted small">
+                    Quantity = (default number x number of days) x number of participants.
+                </p>
+            </details>
+        </div>
+    </nav>
+    <nav class="navbar navbar-light bg-light mt-2 mb-2" title="Click to see explanation">
+        <div class="wrapper navbar-brand mb-0 h1">
+            <details>
+                <summary>
+                    Is there any difference between suggested sets?
+                </summary>
+
+                <p class="text-muted small">
+                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used default option.
+                </p>
+            </details>
+        </div>
+    </nav>
+
+</div>
+
+</body>
+</html>

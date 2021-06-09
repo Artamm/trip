@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trip info page</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container page">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Result</li>
+        </ol>
+    </nav>
+
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Suggestion for  the trip: [[${result.endDestination}]] </span>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body" th:object="${result}">
+                    <h5 class="card-title" th:text="${result.endDestination}"></h5>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Distance,km</th>
+                            <th scope="col">Participants</th>
+                            <th scope="col">Start date</th>
+                            <th scope="col">End date</th>
+                            <th scope="col">Camping</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td th:text="${result.distanceKm}"></td>
+                            <td th:text="${result.participantNumber}"></td>
+                            <td th:text="${result.startDate== null?'Not set': #temporals.format(result.startDate, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${result.endDate == null?'Not set': #temporals.format(result.endDate, 'dd-MM-yyyy')}">
+                                Not set
+                            </td>
+                            <td th:text="${result.campingPlanned ? 'included':'without'}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <nav class="navbar navbar-light bg-light">
+                <span class="navbar-brand mb-0 h1">Suggested list: </span>
+            </nav>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Clothes</h5>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">name</th>
+                            <th scope="col">Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cloth : ${result.clothesList}">
+                            <th scope="row" th:text="${clothStat.index+1}"></th>
+                            <td th:text="${cloth.key}"></td>
+                            <td th:text="${cloth.value}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Stuff</h5>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">name</th>
+                            <th scope="col">Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="stuff : ${result.otherRequiredStuff}">
+                            <th scope="row" th:text="${stuffStat.index+1}"></th>
+                            <td th:text="${stuff.key}"></td>
+                            <td th:text="${stuff.value}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Food</h5>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">name</th>
+                            <th scope="col">Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="food : ${result.foodList}">
+                            <th scope="row" th:text="${foodStat.index+1}"></th>
+                            <td th:text="${food.key}"></td>
+                            <td th:text="${food.value}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-light bg-light mt-2 mb-2" title="Click to see explanation">
+        <div class="wrapper navbar-brand mb-0 h1">
+            <details>
+                <summary>
+                    How is calculated quantity for each object?
+                </summary>
+
+                <p class="text-muted small">
+                    Quantity = (default number x number of days) x number of participants
+                </p>
+            </details>
+        </div>
+    </nav>
+    <nav class="navbar navbar-light bg-light mt-2 mb-2" title="Click to see explanation">
+        <div class="wrapper navbar-brand mb-0 h1">
+            <details>
+                <summary>
+                    Is there any difference between suggested sets?
+                </summary>
+
+                <p class="text-muted small">
+                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used default option.
+                </p>
+            </details>
+        </div>
+    </nav>
+
+</div>
+
+</body>
+</html>
