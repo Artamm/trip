@@ -1,4 +1,4 @@
-# Trip (README TBD)
+# Trip
 A homework for "month with IT 2021"
 
 ## About
