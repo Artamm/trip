@@ -13,26 +13,29 @@
 
     <script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
 <div class="container page min-vh-100">
 
-    <nav class="navbar navbar-light bg-light">
+    <nav id="greeting" class="navbar navbar-light bg-light mb-3">
         <span class="navbar-brand mb-0 h1">Trip web form</span>
     </nav>
 
     <section id="setting">
         <form method="post" th:action="@{'/new'}" th:object="${trip}">
-            <div class="form-row " >
+            <div class="form-row ">
                 <div class="form-group col-md-6">
                     <label for="distance">Distance, km</label>
-                    <input th:field="*{distanceKm}" type="number" min="1" class="form-control" id="distance" placeholder="Distance" required>
+                    <input th:field="*{distanceKm}" type="number" min="1" step="0.1" class="form-control" id="distance"
+                           placeholder="Distance" required>
                     <small class="text-muted">Required parameter</small>
 
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="distance">Participants, number</label>
-                    <input  th:field="*{participantNumber}" type="number" min="1" class="form-control" id="participants" placeholder="Participants">
+                    <label for="participants">Participants, number</label>
+                    <input th:field="*{participantNumber}" type="number" min="1" class="form-control" id="participants"
+                           placeholder="Participants">
                     <small class="text-muted">Minimum 1, dog is included separately</small>
                 </div>
             </div>
@@ -44,13 +47,14 @@
                     <small class="text-muted">Optional</small>
                 </div>
                 <div class="form-group col-md-5">
-                    <label  for="end">End date</label>
+                    <label for="end">End date</label>
                     <input th:field="*{endDate}" type="date" class="form-control" id="end">
                     <small class="text-muted">Optional</small>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="title">Trip title</label>
-                    <input th:field="*{endDestination}" type="text" class="form-control" id="title" placeholder="Trip title">
+                    <input th:field="*{endDestination}" type="text" class="form-control" id="title"
+                           placeholder="Trip title">
                     <small class="text-muted">Optional</small>
 
                 </div>
@@ -75,8 +79,8 @@
                 </summary>
 
                 <p class="text-muted small">
-                    Quantity = (default number x number of days) x number of participants.
-                </p>
+                    Food quantity = (default number x number of days) x number of participants <br>
+                    Other quantities = default number x number of participants </p>
             </details>
         </div>
     </nav>
@@ -88,13 +92,14 @@
                 </summary>
 
                 <p class="text-muted small">
-                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used default option.
+                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used
+                    default option.
                 </p>
             </details>
         </div>
     </nav>
-
 </div>
 
 </body>
+<script th:src="@{/js/main.js}"></script>
 </html>

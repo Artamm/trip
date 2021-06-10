@@ -36,16 +36,16 @@ public class TripDefaultSuggestionImpl implements TripSuggestion {
 
         tripSuggested.getOtherRequiredStuff()
                      .putAll(setStuffBasedOnDuration(tripInfo, durationInDays));
-        tripSuggested.setFoodList(DEFAULT_FOOD_SET);
-        return forEachParticipant(tripSuggested);
+        tripSuggested.setFoodList(new HashMap<>(DEFAULT_FOOD_SET));
+        return forEachParticipant(tripSuggested, durationInDays);
     }
 
-    private TripSuggested forEachParticipant(TripSuggested tripSuggested) {
+    private TripSuggested forEachParticipant(TripSuggested tripSuggested, int days) {
         if (tripSuggested.getParticipantNumber() == 1) {
             return tripSuggested;
         }
         tripSuggested.getFoodList().forEach((key, value) -> tripSuggested.getFoodList().replace(key,
-                (int) value * tripSuggested.getParticipantNumber()));
+                (int) value * tripSuggested.getParticipantNumber() * days));
         tripSuggested.getOtherRequiredStuff()
                      .forEach((key, value) -> tripSuggested.getOtherRequiredStuff().replace(key,
                              (int) value * tripSuggested.getParticipantNumber()));
@@ -56,19 +56,19 @@ public class TripDefaultSuggestionImpl implements TripSuggestion {
     }
 
     private HashMap<String, Object> setStuffBasedOnSeason(Season season) {
-        HashMap<String, Object> stuff = DEFAULT_STUFF_SET;
+        HashMap<String, Object> stuff = new HashMap<>(DEFAULT_STUFF_SET);
         switch (season) {
             case WINTER: {
-                stuff.putAll(DEFAULT_WINTER_STUFF_SET);
+                stuff.putAll(new HashMap<>(DEFAULT_WINTER_STUFF_SET));
                 return stuff;
             }
             case SPRING:
             case AUTUMN: {
-                stuff.putAll(DEFAULT_SPRING_AUTUMN_STUFF_SET);
+                stuff.putAll(new HashMap<>(DEFAULT_SPRING_AUTUMN_STUFF_SET));
                 return stuff;
             }
             case SUMMER: {
-                stuff.putAll(DEFAULT_SUMMER_STUFF_SET);
+                stuff.putAll(new HashMap<>(DEFAULT_SUMMER_STUFF_SET));
                 return stuff;
             }
             default: {
@@ -80,19 +80,19 @@ public class TripDefaultSuggestionImpl implements TripSuggestion {
     private HashMap<String, Object> setClothesBasedOnSeason(Season season) {
         switch (season) {
             case WINTER: {
-                return DEFAULT_WINTER_SET;
+                return new HashMap<>(DEFAULT_WINTER_SET);
             }
             case SPRING: {
-                return DEFAULT_SPRING_SET;
+                return new HashMap<>(DEFAULT_SPRING_SET);
             }
             case SUMMER: {
-                return DEFAULT_SUMMER_SET;
+                return new HashMap<>(DEFAULT_SUMMER_SET);
             }
             case AUTUMN: {
-                return DEFAULT_AUTUMN_SET;
+                return new HashMap<>(DEFAULT_AUTUMN_SET);
             }
             default: {
-                return DEFAULT_SET;
+                return new HashMap<>(DEFAULT_SET);
             }
 
         }
@@ -100,20 +100,24 @@ public class TripDefaultSuggestionImpl implements TripSuggestion {
 
     private HashMap<String, Object> setStuffBasedOnDuration(TripInfo tripInfo, int days) {
         if (days > 1) {
-            return tripInfo.isCampingPlanned() ? LONG_JOURNEY_STUFF_SET_WITH_CAMPING :
-                    LONG_JOURNEY_STUFF_SET_WITH_NO_CAMPING;
+            return tripInfo.isCampingPlanned() ?
+                    new HashMap<>(LONG_JOURNEY_STUFF_SET_WITH_CAMPING) :
+                    new HashMap<>(LONG_JOURNEY_STUFF_SET_WITH_NO_CAMPING);
         } else {
-            return LONG_JOURNEY_STUFF_SET_WITH_NO_CAMPING;
+            return new HashMap<>(LONG_JOURNEY_STUFF_SET_WITH_NO_CAMPING);
         }
 
     }
 
     private int determineDurationInDays(TripInfo tripInfo) {
-        //        if no dates are specified, it calculates approximate values. Assume 1 full day = 48 km
+        //        if no dates are specified, it calculates approximate values. Assume 1 full day = 48 km.
+        //        0 is rounded to 1
         if (tripInfo.getStartDate() == null || tripInfo.getEndDate() == null) {
-            return (int) (tripInfo.getDistanceKm() / 48);
+            return (int) (tripInfo.getDistanceKm() / 48) <= 0 ? 1 :
+                    (int) (tripInfo.getDistanceKm() / 48);
         }
-        return (int) ChronoUnit.DAYS.between(tripInfo.getStartDate(), tripInfo.getEndDate());
+        return (int) ChronoUnit.DAYS.between(tripInfo.getStartDate(), tripInfo.getEndDate()) <= 0 ?
+                1 : (int) ChronoUnit.DAYS.between(tripInfo.getStartDate(), tripInfo.getEndDate());
     }
 
     private Season determineSeason(TripInfo tripInfo) {

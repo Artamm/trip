@@ -34,7 +34,7 @@
                 <div class="card-body" th:object="${result}">
                     <h5 class="card-title" th:text="${result.endDestination}"></h5>
 
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -70,7 +70,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Clothes</h5>
 
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -92,7 +92,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Stuff</h5>
 
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -114,7 +114,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Food</h5>
 
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -142,7 +142,8 @@
                 </summary>
 
                 <p class="text-muted small">
-                    Quantity = (default number x number of days) x number of participants
+                    Food quantity = (default number x number of days) x number of participants <br>
+                    Other quantities = default number x number of participants
                 </p>
             </details>
         </div>
@@ -155,7 +156,8 @@
                 </summary>
 
                 <p class="text-muted small">
-                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used default option.
+                    Set is depending on the season of the trip and a camping option. If no dates are set, then is used
+                    default option.
                 </p>
             </details>
         </div>

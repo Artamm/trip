@@ -1,6 +1,11 @@
-body{
+body {
     background-image: url("/images/background.jpg");
 }
-.page{
+
+.page {
     background: rgba(255, 255, 255, 0.9);
+}
+
+#greeting {
+    border-bottom: solid grey;
 }
