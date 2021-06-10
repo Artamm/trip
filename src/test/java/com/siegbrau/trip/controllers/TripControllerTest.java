@@ -1,5 +1,7 @@
 package com.siegbrau.trip.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.siegbrau.trip.model.TripInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -8,13 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TripRestControllerTest {
-
+class TripControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -24,14 +24,15 @@ class TripRestControllerTest {
     }
 
     @Test
-    void JsonResponseReturnsOk() throws Exception {
-        String responseBody =
-                "{\"distance\" : \"30\", \"start\" : \"2021-06-21\",\"participants\" : \"2\"}";
-        this.mockMvc.perform(post("/trip/new")
-                .content(responseBody)
-                .contentType("application/json")
-                .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    void startPageReturnsOk() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        TripInfo tripInfo =
+                new TripInfo(200D, null, null, "somewhere",
+                        4, true);
+        this.mockMvc.perform(post("/new")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(tripInfo)))
+                    .andExpect(status().isOk());
     }
+
 }
