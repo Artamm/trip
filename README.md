@@ -36,7 +36,7 @@ Result page
 ![image_2](https://user-images.githubusercontent.com/36459172/121527871-90eb8980-ca03-11eb-8f0d-bbd363c83367.JPG)
 
 #### JSON
-Request
+Request POST `/trip/new`
 ```javascript
  curl -X POST -H "Content-type: application/json" -d "{\"distance\" : \"3\", \"start\" : \"2021-06-21\",\"participants\" : \"2\"}" "http://localhost:8080/trip/new"
 ```
