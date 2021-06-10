@@ -24,7 +24,7 @@ Project is based on Spring Boot. There are 2 options how to use:
 
 
 [http://localhost:8080]: http://localhost:8080/
-[http://192.168.99.100:8081/]: http://192.168.99.100:8081/
+[http://192.168.99.100:8080/]: http://192.168.99.100:8080/
 
 
 ## Additional information
