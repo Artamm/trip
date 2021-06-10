@@ -19,7 +19,7 @@ Project is based on Spring Boot. There are 2 options how to use:
     Alternatively, you can create a Docker image. Inside root folder type
            
             docker build -t trip . 
-    App will be available at [http://192.168.99.100:8081/][http://192.168.99.100:8081/]
+    App will be available at [http://192.168.99.100:8080/][http://192.168.99.100:8080/]
    
 
 
