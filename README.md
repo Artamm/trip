@@ -26,6 +26,8 @@ Project is based on Spring Boot. There are 2 options how to use:
 [http://localhost:8080]: http://localhost:8080/
 [http://localhost:8081]: http://localhost:8081/
 
-#### Usage
+### Usage
 
-##### Web 
+#### Web 
+
+#### JSON 
