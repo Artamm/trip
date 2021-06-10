@@ -5,7 +5,8 @@ A homework for "month with IT 2021"
 Project is based on Spring Boot. There are 2 options how to use:
  - Web version with form. Available at localhost port `8080` for local .jar run and port `8081` if used Docker setup
  - Getting JSON answers. Use Postman and type something like 
- `curl -X POST -H "Content-type: application/json" -d "{\"distance\" : \"3\", \"start\" : \"2021-06-21\",\"participants\" : \"2\"}" "http://localhost:8080/trip/new"`
+ 
+        curl -X POST -H "Content-type: application/json" -d "{\"distance\" : \"3\", \"start\" : \"2021-06-21\",\"participants\" : \"2\"}" "http://localhost:8080/trip/new"
  
  ### Setup
  1. Clone repository
